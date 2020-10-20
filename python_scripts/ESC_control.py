@@ -64,4 +64,3 @@ def calibrate():  #This procedure will automatically calibrate the ESC, for a no
 
 def manual_drive():  #This procedure will allow exact value control
     print("You have selected manual option so give a value between 0 and you max value")
-    print("test")
