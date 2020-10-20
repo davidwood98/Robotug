@@ -183,7 +183,7 @@ def function_selector():    #home button that allows you to resellect a mode, ty
         pass
     pass
 
-# The actual program
+# The actual program  
 
 inp = input()
 if inp == ("manual"):
