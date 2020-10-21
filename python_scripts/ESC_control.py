@@ -28,7 +28,7 @@ Code for 1 motor and ESC.
 
 ESC = 4 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
 
-pi = pigpio.pi();  #Initialise Pi connection
+pi = pigpio.pi()  #Initialise Pi connection
 pi.set_servo_pulsewidth(ESC, 0)  #Sets all PWM traffic to 0
 
 max_value = 2000 #Standard maximum pwm signal for the ESC to motor
@@ -82,14 +82,14 @@ def manual_drive():  #This procedure will allow exact value control
         elif int(inp) > max_value :
             print("value must be smaller than", max_value)
         else:
-        pi.set_servo_pulsewidth(ESC,inp)
+            pi.set_servo_pulsewidth(ESC,inp)
 
 def control():  #this mode allows for stepped PWM control of the motor
     print("The motor is starting now and can be controlled with speed increments. It should be calibrated and armed.")
     sleep(2)
     speed = 1000  #the resting speed of the motor, should be at least 700(min)
     print("Controls - w to decrease speed & s to increase speed OR q to decrease a lot of speed & e to increase a lot of speed")
-     while True:   #the while loop will ask for a speed change
+    while True:   #the while loop will ask for a speed change
         pi.set_servo_pulsewidth(ESC, speed)
         inp = input()
         if inp == ("q"):
@@ -114,8 +114,8 @@ def control():  #this mode allows for stepped PWM control of the motor
             manual_drive()
             break  #breaks the while
         elif inp == ("arm"):
-			armed()
-			break
+            armed()
+            break
         elif inp == ("home"): #takes you back to selecting
             function_selector()
             break
@@ -198,3 +198,4 @@ elif inp == ("kill"):
     kill()
 else:
     print("You have messed up please try again. The operators are: calibrate , manual , arm , control , kill")
+    
