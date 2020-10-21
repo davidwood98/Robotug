@@ -63,6 +63,10 @@ def calibrate():  #This procedure will automatically calibrate the ESC, for a no
             armed() #not sure if I want to instantly call another mode??
         elif inp == ("kill"):
             kill()           #safety feature, really
+            pass
+        pass
+    pass
+pass
 
 def manual_drive():  #This procedure will allow exact value control
     print("You have selected manual option so input a value between 0 and the max value")
@@ -83,7 +87,11 @@ def manual_drive():  #This procedure will allow exact value control
             print("value must be smaller than", max_value)
         else:
             pi.set_servo_pulsewidth(ESC,inp)
-
+            pass
+        pass
+    pass
+pass
+    
 def control():  #this mode allows for stepped PWM control of the motor
     print("The motor is starting now and can be controlled with speed increments. It should be calibrated and armed.")
     sleep(2)
@@ -121,6 +129,10 @@ def control():  #this mode allows for stepped PWM control of the motor
             break
         else:
             print("WHAT DID I SAY!! Press w,s,q or e")
+            pass
+        pass
+    pass
+pass
 
 def armed():  #procedure to arm the ESC
     print("Make sure the battery is connected and press Enter")
@@ -139,6 +151,7 @@ def armed():  #procedure to arm the ESC
     elif inp == ("kill"):
         kill()           #safety feature, really
     pass
+pass
 
 def stop():  #stop will cut all signal to the motor
     pi.set_servo_pulsewidth(ESC, 0)
@@ -152,6 +165,7 @@ def stop():  #stop will cut all signal to the motor
     elif inp == ("kill"):
         kill()
     pass
+pass
 
 # The kill function is only for emergencies
 def kill():  #kill will end all signals from the pi.
@@ -159,6 +173,7 @@ def kill():  #kill will end all signals from the pi.
     pi.set_servo_pulsewidth(ESC, 0)
     pi.stop()
     pass
+pass
 
 def function_selector():    #home button that allows you to resellect a mode, type 'home'
     pi.set_servo_pulsewidth(ESC, 0)
@@ -182,6 +197,7 @@ def function_selector():    #home button that allows you to resellect a mode, ty
         print("calibration should be done on initial boot up. You will have to restart the program")
         pass
     pass
+pass
 
 # The actual program  
 
@@ -197,5 +213,6 @@ elif inp == ("control"):
 elif inp == ("kill"):
     kill()
 else:
-    print("You have messed up please try again. The operators are: calibrate , manual , arm , control , kill")
-    
+    print("You have messed up, please try again. The operators are: calibrate , manual , arm , control , kill")
+    pass
+pass
