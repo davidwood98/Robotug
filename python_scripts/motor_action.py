@@ -31,7 +31,7 @@ GPIO.setwarnings(False)
 #INITIAL SET-UP
 
 ESC_1 = 8  # Motor 1 control. this will need to be changed for the actual pin when plugged im
-ESC_2 = 4  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
+ESC_2 = 4  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin eg. 4
 
 pi = pigpio.pi()  #Initialise Pi connection
 
@@ -56,8 +56,44 @@ boot_msg = """Welcome to Robotug drive operation program.
 
 Please ensure you have calibrated the ESCs before running this program!
 
-Press Enter confirm you have calibrated the ESC."""
+Please type 'confirm' to condirm you have calibrated the ESC.\n"""
 print(boot_msg) 
+
+confirm = input()  #asking for a confirmation input
+if confirm == ("confirm"):  #conditional statements
+    print("Excellent\n")
+    pass
+else:
+    print("Please go and calibrate the ESCs")
+    ESC_control.kill()  #should call the kill function from ESC_control.py
+    pass
+pass
+print("*" * 15, "\n")
+sleep(1)
+movement_msg = """To move Robotug select an operation.
+Please type the command exactly.
+Select:
+
+forward , back , left , right , spin , pre-planned\n"""
+print(movement_msg)
 
 
 # MOVEMENT FUNCTIONS
+
+def move_forward():  #forward movement function
+    """
+    funciton will rotate both motors at equal speed
+    """
+    if True :
+        pi.set_PWM_dutycycle(ESC_1, 100)
+        pi.set_PWM_dutycycle(ESC_2, 100)
+        pass
+    pass
+pass
+
+def move_backwards():
+    """
+    funciton will rotate both motors at equal speed in reverse
+
+    """
+    pass
