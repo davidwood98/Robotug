@@ -12,6 +12,7 @@ AGAIN WILL NEED pigpio INSTALLED!!!
 #IMPORTS
 from time import sleep   #this is an invaluable function for pausing the script
 import ESC_control
+import keyboard 
 import os                #should import functions from os, you never know when you might need it
 #import RPi.GPIO as GPIO  #this may not be necessary  #I dont think I will use this yet...
 os.system ("sudo pigiod")#launching the GPIO library
@@ -62,19 +63,19 @@ print(boot_msg)
 confirm = input()  #asking for a confirmation input
 if confirm == ("confirm"):  #conditional statements
     print("Excellent\n")
-    pass
+    
 else:
     print("Please go and calibrate the ESCs")
     ESC_control.kill()  #should call the kill function from ESC_control.py
-    pass
-pass
+    
+
 print("*" * 15, "\n")
 sleep(1)
 movement_msg = """To move Robotug select an operation.
 Please type the command exactly.
 Select:
 
-forward , back , left , right , spin , pre-planned\n"""
+control , pre-planned\n"""
 print(movement_msg)
 
 
@@ -84,16 +85,89 @@ def move_forward():  #forward movement function
     """
     funciton will rotate both motors at equal speed
     """
-    if True :
-        pi.set_PWM_dutycycle(ESC_1, 100)
-        pi.set_PWM_dutycycle(ESC_2, 100)
-        pass
-    pass
-pass
+    pi.set_PWM_dutycycle(ESC_1, 100)
+    pi.set_PWM_dutycycle(ESC_2, 100)
+
 
 def move_backwards():
     """
     funciton will rotate both motors at equal speed in reverse
 
     """
-    pass
+    #currently this an unknown if possible with the ESC
+    
+
+
+def turn_left():
+    """
+    In order to turn left we must engage the right motor ESC_2 and not move the left motor ESC_1
+    """
+    pi.set_PWM_dutycycle(ESC_1,0)
+    pi.set_PWM_dutycycle(ESC_2,100)
+
+
+def turn_right():
+    """
+    In order to turn right we must engage the left motor ESC_1 and not move the right motor ESC_2
+    """
+    pi.set_PWM_dutycycle(ESC_1,100)
+    pi.set_PWM_dutycycle(ESC_2,0)
+
+
+def spin():
+    """
+    funciton will rotate both motors at equal speed in opposite directions
+    """
+    #currently this an unknown if even possible with the ESC
+    
+
+
+def pre_planned():
+    """
+    executes the movement functions for a set movement output
+    as an example:
+    """
+    move_forward()
+    sleep(1)
+    turn_left()
+    sleep(1)
+    turn_right()
+    sleep(1)
+    move_backwards()
+    
+
+
+def stop():
+    """
+    function will hault both the motors, bringing Robotug to a stop.
+    """
+    pi.set_PWM_dutycycle(ESC_1,0)
+    pi.set_PWM_dutycycle(ESC_2,0)
+
+
+# ACUTUAL PROGRAMME
+
+selected_mode = input()  #asking for an input from keyboard command
+
+if selected_mode == ("control"):
+    while keyboard.KEY_DOWN:
+        if keyboard.is_pressed("up"):
+            print("moving forward")
+            move_forward()
+        if keyboard.is_pressed("down"):
+            move_backwards()
+            print("moving back")
+        if keyboard.is_pressed("left"):
+            turn_left()
+            print("turning left")
+        if keyboard.is_pressed("right"):
+            turn_right()
+            print("turning right")
+        if keyboard.is_pressed("ctrl + x"):
+            break
+    
+elif selected_mode == ("pre-planned"):
+    pre_planned()
+
+else:
+    print("control or pre-planned.")
