@@ -26,14 +26,14 @@ import pigpio
 Code for 1 motor and ESC.
 """
 
-ESC = 4 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
+ESC = 27 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
 
 pi = pigpio.pi()  #Initialise Pi connection
 pi.set_servo_pulsewidth(ESC, 0)  #Sets all PWM traffic to 0
 
-max_value = 2000 #Standard maximum pwm signal for the ESC to motor
+max_value = 2500 #Standard maximum pwm signal for the ESC to motor
                  #change this if ESC's max value is different or leave it be
-min_value = 700  #Standard minimum pwm signal for the ESC to motor
+min_value = 500  #Standard minimum pwm signal for the ESC to motor
                  #change this if ESC's min value is different or leave it be
 print ("For first time launch, select calibrate. If the ESC is calibrated, select arm.")
 print ("Type the exact word for the function you want")
@@ -69,7 +69,7 @@ def calibrate():  #This procedure will automatically calibrate the ESC, for a no
 pass
 
 def manual_drive():  #This procedure will allow exact value control
-    print("You have selected manual option so input a value between 0 and the max value")
+    print("You have selected manual option so input a value of 0 or between min and the max value")
     sleep(1)
     print("Type 'stop' to hault operations")
     while True :     #this while loop should continuously ask for an input

@@ -9,16 +9,6 @@ It will also enable a spin option.
 
 AGAIN WILL NEED pigpio INSTALLED!!!
 """
-#IMPORTS
-from time import sleep   #this is an invaluable function for pausing the script
-import ESC_control
-import keyboard 
-import os                #should import functions from os, you never know when you might need it
-#import RPi.GPIO as GPIO  #this may not be necessary  #I dont think I will use this yet...
-os.system ("sudo pigiod")#launching the GPIO library
-sleep(1)                 #gives time for the system to process
-import pigpio            #GPIO is identified on broadcom numbers
-
 #If I want the GPIO pin work this is an example:
 
 """
@@ -29,6 +19,18 @@ GPIO.setup(11,GPIO.OUT)  #Right motor input A
 GPIO.setup(13,GPIO.OUT)  #Right motor input B
 GPIO.setwarnings(False)
 """     
+
+#IMPORTS
+from time import sleep   #this is an invaluable function for pausing the script
+import ESC_control
+import keyboard 
+import os                #should import functions from os, you never know when you might need it
+#import RPi.GPIO as GPIO  #this may not be necessary  #I dont think I will use this yet...
+os.system ("sudo pigiod")#launching the GPIO library - DOESN'T ALWAYS WORK
+sleep(2)                 #gives time for the system to process
+import pigpio            #GPIO is identified on broadcom numbers
+
+
 #INITIAL SET-UP
 
 ESC_1 = 8  # Motor 1 control. this will need to be changed for the actual pin when plugged im
@@ -37,7 +39,13 @@ ESC_2 = 4  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin e
 pi = pigpio.pi()  #Initialise Pi connection
 
 pi.set_PWM_dutycycle(ESC_1,   0) # initial PWM off so as not to ruin anything
-pi.set_PWM_dutycycle(ESC_2,   0) # initial PWM off ""
+pi.set_PWM_dutycycle(ESC_2,   0) # initial PWM off ""\
+
+""" Frequency of the PWM is defualt 8000 - 10 Hz 
+The frequency can be set by using:  pi.set_PWM_frequency(gpio, frequency_value)
+"""
+pi.set_PWM_frequency(ESC_1,50)  # set the frequency to a servo length standard
+pi.set_PWM_frequency(ESC_2,50)  # ""
 
 pi.set_mode(ESC_1, pigpio.OUTPUT) # ESC_1 gpio as output
 pi.set_mode(ESC_2, pigpio.OUTPUT) # ESC_2 gpio as output
@@ -45,9 +53,6 @@ pi.set_mode(ESC_2, pigpio.OUTPUT) # ESC_2 gpio as output
 pi.set_PWM_range(ESC_1, 100)  #Sets the duty cycle range of the PWM to 0-100%  *wonder if possible to set both in one operation?
 pi.set_PWM_range(ESC_2, 100)  #Sets the duty cycle range of the PWM to 0-100%
 
-""" Frequency of the PWM is defualt 8000 - 10 Hz 
-The frequency can be set by using:  pi.set_PWM_frequency(gpio, frequency_value)
-"""
 
 max_duty = 100 #Duty cycle input
 half_duty = 50 #half duty cycle input
