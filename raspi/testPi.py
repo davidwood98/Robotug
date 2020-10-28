@@ -30,7 +30,7 @@ pi.set_servo_pulsewidth(ESC, 1140)
 
 rpm_in = 22
 pi.set_mode(rpm_in, pigpio.INPUT)  # setting the gpio pin of the rpm to be an input
-
+pi.set_pull_up_down(rpm_in,pigpio.PUD_DOWN) #setting the gpio pin to 0 - it reads 1 24/7 otherwise
 rpm = pi.read(rpm_in)
 
 while True:

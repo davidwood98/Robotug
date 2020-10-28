@@ -1,6 +1,6 @@
 import keyboard
 import time
-
+selected_mode = input()
 if selected_mode == ("control"):
     while keyboard.KEY_DOWN:
         if keyboard.is_pressed("up"):

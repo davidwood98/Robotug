@@ -90,8 +90,8 @@ def move_forward():  #forward movement function
     """
     funciton will rotate both motors at equal speed
     """
-    pi.set_PWM_dutycycle(ESC_1, 100)
-    pi.set_PWM_dutycycle(ESC_2, 100)
+    pi.set_PWM_dutycycle(ESC_1, 50)
+    pi.set_PWM_dutycycle(ESC_2, 50)
 
 
 def move_backwards():
