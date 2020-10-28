@@ -22,7 +22,7 @@ GPIO.setwarnings(False)
 
 #IMPORTS
 from time import sleep   #this is an invaluable function for pausing the script
-from ESC_control import kill
+
 import keyboard 
 import os                #should import functions from os, you never know when you might need it
 #import RPi.GPIO as GPIO  #this may not be necessary  #I dont think I will use this yet...
@@ -71,7 +71,7 @@ if confirm == ("confirm"):  #conditional statements
     
 else:
     print("Please go and calibrate the ESCs")
-    ESC_control.kill()  #should call the kill function from ESC_control.py
+      #should call the kill function from ESC_control.py
     
 
 print("*" * 15, "\n")
