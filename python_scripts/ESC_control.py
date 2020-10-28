@@ -31,9 +31,9 @@ ESC = 27 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
 pi = pigpio.pi()  #Initialise Pi connection
 pi.set_servo_pulsewidth(ESC, 0)  #Sets all PWM traffic to 0
 
-max_value = 2500 #Standard maximum pwm signal for the ESC to motor
+max_value = 1950 #Standard maximum pwm signal for the ESC to motor
                  #change this if ESC's max value is different or leave it be
-min_value = 500  #Standard minimum pwm signal for the ESC to motor
+min_value = 700  #Standard minimum pwm signal for the ESC to motor
                  #change this if ESC's min value is different or leave it be
 print ("For first time launch, select calibrate. If the ESC is calibrated, select arm.")
 print ("Type the exact word for the function you want")
