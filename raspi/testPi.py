@@ -13,11 +13,20 @@ ESC = 27 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
 pi = pigpio.pi()  #Initialise Pi connection
 pi.set_servo_pulsewidth(ESC, 0)  #Sets all PWM traffic to 0
 sleep(1)
-pi.set_servo_pulsewidth(ESC, 1140)
+
 max_value = 2500 #Standard maximum pwm signal for the ESC to motor
                  #change this if ESC's max value is different or leave it be
 min_value = 500  #Standard minimum pwm signal for the ESC to motor
                  #change this if ESC's min value is different or leave it be
+pi.set_servo_pulsewidth(ESC, 0)
+sleep(1)     #little pause between settings to no ruin motor
+pi.set_servo_pulsewidth(ESC, max_value)
+sleep(1)
+pi.set_servo_pulsewidth(ESC, min_value)
+sleep(1)
+print("the system is now armed")
+
+pi.set_servo_pulsewidth(ESC, 1150)
 
 rpm_in = 22
 pi.set_mode(rpm_in, pigpio.INPUT)  # setting the gpio pin of the rpm to be an input
