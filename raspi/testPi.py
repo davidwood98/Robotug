@@ -31,7 +31,7 @@ pi.set_servo_pulsewidth(ESC, 1140)
 rpm_in = 22
 pi.set_mode(rpm_in, pigpio.INPUT)  # setting the gpio pin of the rpm to be an input
 
-rpm = pi.read_gpio(rpm_in)
+rpm = pi.read(rpm_in)
 
 while True:
     print(rpm)
