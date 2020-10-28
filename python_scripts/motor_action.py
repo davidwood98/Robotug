@@ -33,8 +33,8 @@ import pigpio            #GPIO is identified on broadcom numbers
 
 #INITIAL SET-UP
 
-ESC_1 = 8  # Motor 1 control. this will need to be changed for the actual pin when plugged im
-ESC_2 = 4  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin eg. 4
+ESC_1 = 27  # Motor 1 control. this will need to be changed for the actual pin when plugged im
+ESC_2 = 13  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin eg. 4
 
 pi = pigpio.pi()  #Initialise Pi connection
 
