@@ -22,7 +22,7 @@ GPIO.setwarnings(False)
 
 #IMPORTS
 from time import sleep   #this is an invaluable function for pausing the script
-import ESC_control
+from ESC_control import kill
 import keyboard 
 import os                #should import functions from os, you never know when you might need it
 #import RPi.GPIO as GPIO  #this may not be necessary  #I dont think I will use this yet...
