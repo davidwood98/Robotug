@@ -12,7 +12,7 @@ ESC = 27 #'GPIO pin number' #Connect the ESC in a GPIO pin eg 4
 
 pi = pigpio.pi()  #Initialise Pi connection
 pi.set_servo_pulsewidth(ESC, 0)  #Sets all PWM traffic to 0
-sleep(1)
+sleep(2)
 
 max_value = 1950 #Standard maximum pwm signal for the ESC to motor
                  #change this if ESC's max value is different or leave it be
@@ -31,27 +31,11 @@ pi.set_servo_pulsewidth(ESC, 1140)
 rpm_in = 22
 pi.set_mode(rpm_in, pigpio.INPUT)  # setting the gpio pin of the rpm to be an input
 
-def read_gpio():
-    """
-    docstring
-    """
-    gpio_value = pi.read(rpm_in)
-    print(gpio_value)
+rpm = pi.read_gpio(rpm_in)
 
-def print_rpm():
-    """
-    docstring
-    """
-    print(rpm_in)
-
-#Program
-
-inp = input()
-
-if inp == ("gpio"):
-    read_gpio
-elif inp == ("read"):
-        print_rpm()
+while True:
+    print(rpm)
+    pass
 
 
 
