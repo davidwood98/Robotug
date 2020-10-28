@@ -19,14 +19,14 @@ max_value = 1950 #Standard maximum pwm signal for the ESC to motor
 min_value = 700  #Standard minimum pwm signal for the ESC to motor
                  #change this if ESC's min value is different or leave it be
 pi.set_servo_pulsewidth(ESC, 0)
-sleep(1.5)     #little pause between settings to no ruin motor
+sleep(2)     #little pause between settings to no ruin motor
 pi.set_servo_pulsewidth(ESC, max_value)
-sleep(1.5)
+sleep(2)
 pi.set_servo_pulsewidth(ESC, min_value)
-sleep(1.5)
+sleep(2)
 print("the system is now armed")
-
-pi.set_servo_pulsewidth(ESC, 1150)
+sleep(2)
+pi.set_servo_pulsewidth(ESC, 1140)
 
 rpm_in = 22
 pi.set_mode(rpm_in, pigpio.INPUT)  # setting the gpio pin of the rpm to be an input
