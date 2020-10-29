@@ -1,6 +1,7 @@
 import keyboard
 import time
-selected_mode = input()
+selected_mode = input()  #asking for an input from keyboard command
+
 if selected_mode == ("control"):
     while keyboard.KEY_DOWN:
         if keyboard.is_pressed("up"):
@@ -17,4 +18,3 @@ if selected_mode == ("control"):
             print("turning right")
         if keyboard.is_pressed("ctrl + x"):
             break
-    
