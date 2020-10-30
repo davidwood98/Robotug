@@ -134,7 +134,8 @@ def pre_planned():
     turn_right()
     sleep(2)
     move_forward()
-    
+    sleep(2)
+    stop()
 
 
 def stop():
@@ -168,8 +169,8 @@ if selected_mode == ("control"):
         else:
             stop()
             print("stopped")
-            
-elif selected_mode == ("pre-planned"):
+
+if selected_mode == ("pre-planned"):
     pre_planned()
 
 else:
