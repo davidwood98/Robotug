@@ -128,7 +128,7 @@ def pre_planned():
     as an example:
     """
     sleep(1)
-    move_forward()
+    pi.set_servo_pulsewidth(ESC_1, low_throttle)
     sleep(6)
 
 
