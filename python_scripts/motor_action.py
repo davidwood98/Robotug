@@ -130,6 +130,8 @@ def pre_planned():
     sleep(1)
     pi.set_servo_pulsewidth(ESC_1, low_throttle)
     sleep(6)
+    pi.set_servo_pulsewidth(ESC_1, min_throttle)
+    stop()
 
 
 def stop():
