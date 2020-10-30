@@ -127,7 +127,8 @@ def pre_planned():
     executes the movement functions for a set movement output
     as an example:
     """
-    move_forward()
+    pi.set_servo_pulsewidth(ESC_1, low_throttle)
+    pi.set_servo_pulsewidth(ESC_2, low_throttle)
     sleep(4)
     turn_left()
     sleep(2)
