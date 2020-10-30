@@ -128,6 +128,7 @@ def pre_planned():
     as an example:
     """
     move_forward()
+    move_forward()
     sleep(2)
     turn_left()
     sleep(2)
