@@ -129,6 +129,8 @@ def pre_planned():
     """
     move_forward()
     move_forward()
+    move_forward()
+    move_forward()
     sleep(2)
     turn_left()
     sleep(2)
