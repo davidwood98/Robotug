@@ -13,7 +13,7 @@ time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, 1900)
 time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, 1100)
-time.sleep(1)
+time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, 1900)
 
 
