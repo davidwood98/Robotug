@@ -19,5 +19,5 @@ pi.set_servo_pulsewidth(ESC_1, 1900)
 
 
 
-pi.stop()
+
 
