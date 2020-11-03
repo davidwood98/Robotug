@@ -32,6 +32,10 @@ print("*" * 10, "\n")
 #INITIAL SET-UP
 ESC_1 = 27  # Motor 1 control. this will need to be changed for the actual pin when plugged im
 ESC_2 = 13  # Motor 2 control. 'GPIO pin number' #Connect the ESC in a GPIO pin eg. 4
+relay_ch1 = 23 #gpio pin for relay channel 1
+relay_ch2 = 22 #gpio pin  for relay channel 2  #23 and 22 are for ESC_1
+#relay2_ch1 = ...
+#relay2_ch2 = ...
 
 pi = pigpio.pi()  #Initialise Pi connection
 
@@ -85,8 +89,17 @@ def move_forward():  #forward movement function
     """
     funciton will rotate both motors at equal speed
     """
-    pi.set_servo_pulsewidth(ESC_1, low_throttle)
-    pi.set_servo_pulsewidth(ESC_2, low_throttle)
+    if pi.read(relay_ch1) OR pi.read(relay_ch2) == 1:
+        pi.set_servo_pulsewidth(ESC_1,0)
+        pi.set_servo_pulsewidth(ESC_2,0)
+        sleep(0.5)
+        pi.write(relay_ch1, 0)
+        pi.write(relay_ch2, 0)
+        pi.set_servo_pulsewidth(ESC_1, low_throttle)
+        pi.set_servo_pulsewidth(ESC_2, low_throttle)
+    else:
+        pi.set_servo_pulsewidth(ESC_1, low_throttle)
+        pi.set_servo_pulsewidth(ESC_2, low_throttle)
 
 
 def move_backwards():
@@ -94,8 +107,17 @@ def move_backwards():
     funciton will rotate both motors at equal speed in reverse
 
     """
-    #currently this an unknown if possible with the ESC
-    
+    if pi.read(relay_ch1) OR pi.read(relay_ch2) == 0:
+        pi.set_servo_pulsewidth(ESC_1,0)
+        pi.set_servo_pulsewidth(ESC_2,0)
+        sleep(0.5)
+        pi.write(relay_ch1, 1)
+        pi.write(relay_ch2, 1)
+        pi.set_servo_pulsewidth(ESC_1, low_throttle)
+        pi.set_servo_pulsewidth(ESC_2, low_throttle)
+    else:
+        pi.set_servo_pulsewidth(ESC_1, low_throttle)
+        pi.set_servo_pulsewidth(ESC_2, low_throttle)
 
 
 def turn_left():
