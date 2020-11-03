@@ -4,7 +4,7 @@ import os
 import pigpio
 
 pi = pigpio.pi()
-gpio_list = (22,23)
+gpio_list = int((22,23))
 
 pi.write(gpio_list, 1)
 
