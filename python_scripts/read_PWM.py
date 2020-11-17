@@ -11,7 +11,7 @@ pi = pigpio.pi()  #Initialise Pi connection
 max_throttle = 1900 #Max throttle input
 half_throttle = max_throttle/2 #half throttle input
 min_throttle = 1100  #Min throttle input, essentially a neutral
-low_throttle = 1150
+low_throttle = 1200
 
 
 #ESC arming
@@ -20,7 +20,7 @@ time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, max_throttle)
 time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, min_throttle)
-time.sleep(1)
+time.sleep(2)
 pi.set_servo_pulsewidth(ESC_1, low_throttle)
 
 class reader:
