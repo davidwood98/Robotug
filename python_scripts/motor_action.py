@@ -88,7 +88,7 @@ def move_forward():  #forward movement function
     """
     funciton will rotate both motors at equal speed
     """
-    if pi.read(relay_ch1) OR pi.read(relay_ch2) == 1:
+    if pi.read(relay_ch1) or pi.read(relay_ch2) == 1:
         pi.set_servo_pulsewidth(ESC_1,0)
         pi.set_servo_pulsewidth(ESC_2,0)
         sleep(0.5)

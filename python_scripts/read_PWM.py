@@ -1,7 +1,7 @@
 import time
 import pigpio # http://abyz.co.uk/rpi/pigpio/python.html
 
-class reader:
+class Reader:
    """
    A class to read PWM pulses and calculate their frequency
    and duty cycle.  The frequency is how often the pulse
@@ -100,19 +100,19 @@ if __name__ == "__main__":
    import pigpio
    import read_PWM
 
-   PWM_GPIO = 4
-   RUN_TIME = 60.0
-   SAMPLE_TIME = 2.0
+   pwm_in_gpio = 4
+   run_time = 60.0
+   sampling_time = 2.0
 
    pi = pigpio.pi()
 
-   p = read_PWM.reader(pi, PWM_GPIO)
+   p = read_PWM.Reader(pi, pwm_in_gpio)
 
    start = time.time()
 
-   while (time.time() - start) < RUN_TIME:
+   while (time.time() - start) < run_time:
 
-      time.sleep(SAMPLE_TIME)
+      time.sleep(sampling_time)
 
       f = p.frequency()
       pw = p.pulse_width()
