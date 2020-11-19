@@ -1,28 +1,6 @@
 import time
 import pigpio # http://abyz.co.uk/rpi/pigpio/python.html
 
-#INITIAL SET-UP
-
-ESC_1 = 27  
-relay_ch1 = 23 
-
-pi = pigpio.pi()  #Initialise Pi connection
-
-max_throttle = 1900 #Max throttle input
-half_throttle = max_throttle/2 #half throttle input
-min_throttle = 1100  #Min throttle input, essentially a neutral
-low_throttle = 1200
-
-
-#ESC arming
-pi.set_servo_pulsewidth(ESC_1,0)
-time.sleep(2)
-pi.set_servo_pulsewidth(ESC_1, max_throttle)
-time.sleep(2)
-pi.set_servo_pulsewidth(ESC_1, min_throttle)
-time.sleep(2)
-pi.set_servo_pulsewidth(ESC_1, low_throttle)
-
 class reader:
    """
    A class to read PWM pulses and calculate their frequency

@@ -38,7 +38,6 @@ relay_ch2 = 22 #gpio pin  for relay channel 2  #23 and 22 are for ESC_1
 #relay2_ch2 = ...
 
 pi = pigpio.pi()  #Initialise Pi connection
-
 max_throttle = 1900 #Max throttle input
 half_throttle = max_throttle/2 #half throttle input
 min_throttle = 1100  #Min throttle input, essentially a neutral
@@ -136,14 +135,33 @@ def turn_right():
     pi.set_servo_pulsewidth(ESC_2,min_throttle)
 
 
-def spin():
+def spin_clockwise():
     """
-    funciton will rotate both motors at equal speed in opposite directions
+    funciton will rotate both motors at equal speed in opposite directions creating
+    a clockwise rotation
     """
-    #currently this an unknown if even possible with the ESC
+    pi.set_servo_pulsewidth(ESC_1,min_throttle)
+    pi.set_servo_pulsewidth(ESC_2,min_throttle)
+    sleep(0.5)
+    pi.write(relay_ch1, 0)
+    pi.write(relay_ch1, 1)
+    pi.set_servo_pulsewidth(ESC_1, low_throttle)
+    pi.set_servo_pulsewidth(ESC_2, low_throttle)
     
 
+def spin_anticlockwise():
+    """
+    will spin the robot in an anticlockwise direction
+    """
+    pi.set_servo_pulsewidth(ESC_1,min_throttle)
+    pi.set_servo_pulsewidth(ESC_2,min_throttle)
+    sleep(0.5)
+    pi.write(relay_ch1, 1)
+    pi.write(relay_ch1, 0)
+    pi.set_servo_pulsewidth(ESC_1, low_throttle)
+    pi.set_servo_pulsewidth(ESC_2, low_throttle)
 
+    
 def pre_planned():
     """
     executes the movement functions for a set movement output
@@ -188,13 +206,19 @@ if selected_mode == ("control"):
         elif keyboard.is_pressed("right"):
             turn_right()
             print("turning right")
+        elif keybaord.is_pressed("ctrl + right"):
+            spin_clockwise()
+            print("spinning clockwise")
+        elif keyboard.is_pressed("ctrl + left"):
+            spin_anticlockwise()
+            print("spinning anticlockwise")
         elif keyboard.is_pressed("ctrl + x"):
             break
         else:
             stop()
             print("stopped")
 
-if selected_mode == ("pre-planned"):
+elif selected_mode == ("pre-planned"):
     pre_planned()
 
 else:
