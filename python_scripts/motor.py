@@ -121,8 +121,7 @@ def control(pi, ESC1, speed, idle):
     """
     This mode allows for incrimental stepping PWM control of the motor
     """
-    print("The motor is starting now and can be controlled with speed increments. It should be calibrated and armed.")
-    time.sleep(2)
+    time.sleep(1)
     print("Controls - w to decrease speed & s to increase speed OR q to decrease a lot of speed & e to increase a lot of speed, or x to kill")
     while True:   #the while loop will ask for a speed change
         pi.set_servo_pulsewidth(ESC1, speed)
@@ -146,7 +145,7 @@ def control(pi, ESC1, speed, idle):
             kill(pi, ESC1)
             break           #safety feature, really
         else:
-            print("WHAT DID I SAY!! Press w,s,q or e")
+            print("WHAT DID I SAY!! Press w,s,q,e or x")
 
 
 # STOP FUNCITONS
