@@ -56,12 +56,7 @@ pi.set_servo_pulsewidth(ESC_2, min_throttle)
 sleep(1)
 
 #PROGRAM START
-boot_msg = """Welcome to Robotug drive operation program. 
 
-Please ensure you have calibrated the ESCs before running this program!
-
-Please type 'confirm' to confirm you have calibrated the ESC.\n"""
-print(boot_msg) 
 
 cnfrm = input()  #asking for a confirmation input
 if cnfrm == ("confirm"):  #conditional statements
@@ -106,7 +101,7 @@ def move_backwards():
     funciton will rotate both motors at equal speed in reverse
 
     """
-    if pi.read(relay_ch1) OR pi.read(relay_ch2) == 0:
+    if pi.read(relay_ch1) or pi.read(relay_ch2) == 0:
         pi.set_servo_pulsewidth(ESC_1,0)
         pi.set_servo_pulsewidth(ESC_2,0)
         sleep(0.5)
@@ -143,7 +138,7 @@ def spin_clockwise():
     pi.set_servo_pulsewidth(ESC_1,min_throttle)
     pi.set_servo_pulsewidth(ESC_2,min_throttle)
     sleep(0.5)
-    pi.write(relay_ch1, 0)
+    pi.write(relay_ch1, 0)      #***doesnt work
     pi.write(relay_ch1, 1)
     pi.set_servo_pulsewidth(ESC_1, low_throttle)
     pi.set_servo_pulsewidth(ESC_2, low_throttle)
@@ -156,7 +151,7 @@ def spin_anticlockwise():
     pi.set_servo_pulsewidth(ESC_1,min_throttle)
     pi.set_servo_pulsewidth(ESC_2,min_throttle)
     sleep(0.5)
-    pi.write(relay_ch1, 1)
+    pi.write(relay_ch1, 1)      #***doesnt work
     pi.write(relay_ch1, 0)
     pi.set_servo_pulsewidth(ESC_1, low_throttle)
     pi.set_servo_pulsewidth(ESC_2, low_throttle)
@@ -206,7 +201,7 @@ if selected_mode == ("control"):
         elif keyboard.is_pressed("right"):
             turn_right()
             print("turning right")
-        elif keybaord.is_pressed("ctrl + right"):
+        elif keyboard.is_pressed("ctrl + right"):
             spin_clockwise()
             print("spinning clockwise")
         elif keyboard.is_pressed("ctrl + left"):
