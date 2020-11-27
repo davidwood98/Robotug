@@ -46,9 +46,10 @@ try:
         lcd.fill(0,0,0)
 
         for (quality, angle, distance) in scan:  # the scan data format is (quality, angle, distance), we dont really mind about the quality
-            scan_data = [quality, angle, distance]
+            scan_data = []
 
         process_data(scan_data)
+        
 except KeyboardInterrupt:
     print("Stopping...")
 lidar.stop()
