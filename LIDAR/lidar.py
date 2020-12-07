@@ -42,13 +42,16 @@ def scan():
             lcd.fill((0,0,0))
             for (quality, angle, distance) in scan:
                 max_distance = max([min([5000, distance]), max_distance])
+                min_distance = min(distance)
                 radians = angle * pi / 180.0
                 x = distance * cos(radians)
                 y = distance * sin(radians)
                 point = (240 + int(x / max_distance * 159), 160 + int(y / max_distance * 159))
                 lcd.set_at(point, pygame.Color(255, 255, 255))
             pygame.display.update()
+            print(min_distance)
             print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
+
 
 
 if __name__ == "__main__":
