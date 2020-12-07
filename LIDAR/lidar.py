@@ -18,39 +18,38 @@ from math import cos, sin, pi
 import pygame
 from rplidar import RPLidar 
 
-# SET-UP   
+# SET-UP 
+os.putenv('SDL_FBDEV', '/dev/fb1')
+pygame.init()
+lcd = pygame.display.set_mode((480,320))
+pygame.mouse.set_visible(False)
+lcd.fill((0,0,0))
+pygame.display.update()  
+
 PORT_NAME = "/dev/ttyUSB0" #** or something similar can find in the terminal
 lidar = RPLidar(PORT_NAME)
-lcd = pygame.display.set_mode((320,240))
+
 
 #FUNCTIONS
-def process_data(data):
+def scan():
     """
-    processes the lidar data from scan[]
+    processes the lidar data
     """
-    print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
-    time.sleep(0.8)
-    max_distance = max([distance])
-    radians = angle * pi / 180.0
-    x = distance * cos(radians)
-    y = distance * sin(radians)
-    point = (240 + int(x / max_distance * 159), 160 + int(y / max_distance * 159))
-    lcd.set_at(point, pygame.Color(255, 255, 255))
-    pygame.display.update()
-
-# PROGRAM
-try:
-    print("Recording measurments... Press Crl+C to stop.")
+    max_distance = 0
+    print('Recording measurments... Press Crl+C to stop.')
     for scan in lidar.iter_scans():
-        pass
-        lcd.fill((0,0,0))
+        if len(scan) > 100:
+            lcd.fill((0,0,0))
+            for (quality, angle, distance) in scan:
+                max_distance = max([min([5000, distance]), max_distance])
+                radians = angle * pi / 180.0
+                x = distance * cos(radians)
+                y = distance * sin(radians)
+                point = (240 + int(x / max_distance * 159), 160 + int(y / max_distance * 159))
+                lcd.set_at(point, pygame.Color(255, 255, 255))
+            pygame.display.update()
+            print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
 
-        for (quality, angle, distance) in scan:  # the scan data format is (quality, angle, distance), we dont really mind about the quality
-            scan_data = []
 
-        process_data(scan_data)
-        
-except KeyboardInterrupt:
-    print("Stopping...")
-lidar.stop()
-lidar.disconnect()
+if __name__ == "__main__":
+    scan()
