@@ -29,7 +29,7 @@ def process_data(data):
     processes the lidar data from scan[]
     """
     print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
-    time.sleep(0,8)
+    time.sleep(0.8)
     max_distance = max([distance])
     radians = angle * pi / 180.0
     x = distance * cos(radians)
