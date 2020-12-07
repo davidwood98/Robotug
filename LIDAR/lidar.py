@@ -21,7 +21,7 @@ from rplidar import RPLidar
 # SET-UP 
 os.putenv('SDL_FBDEV', '/dev/fb1')
 pygame.init()
-lcd = pygame.display.set_mode((480,320))
+lcd = pygame.display.set_mode((720,480))
 pygame.mouse.set_visible(False)
 lcd.fill((0,0,0))
 pygame.display.update()  
@@ -35,24 +35,29 @@ def scan():
     """
     processes the lidar data
     """
-    max_distance = 0
+    max_distance = 0  #scaling the pygame window
     print('Recording measurments... Press Crl+C to stop.')
     for scan in lidar.iter_scans():
-        if len(scan) > 100:
+        if len(scan) > 50:
             lcd.fill((0,0,0))
-            min_distance = min(scan[distance])
+            pygame.draw.line(lcd,pygame.Color(100,100,100) , (0, 240),(720, 240))
+            pygame.draw.line(lcd,pygame.Color(100,100,100) , (360, 0),(360, 480))
             for (quality, angle, distance) in scan:
                 max_distance = max([min([5000, distance]), max_distance])
                 radians = angle * pi / 180.0
                 x = distance * cos(radians)
                 y = distance * sin(radians)
-                point = (240 + int(x / max_distance * 159), 160 + int(y / max_distance * 159))
+                point = (360 + int(x / max_distance * 159), 240 + int(y / max_distance * 159))            
                 lcd.set_at(point, pygame.Color(255, 255, 255))
             pygame.display.update()
-            print(min_distance)
-            print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
+        #print(min_distance)
+        #print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
 
-
-
+def min_distance():
+    for scan in lidar.iter_scans():
+        for (_,_,distance) in scan:
+            mindis = min([distance])
+        print(mindis)
 if __name__ == "__main__":
-    scan()
+    #scan()
+    min_distance()
