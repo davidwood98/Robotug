@@ -65,9 +65,9 @@ if startup_inp == ("yes"):      # The ESCs need arming when first powered on
     print("Arming the ESCs")
 
     pi.set_servo_pulsewidth(ESC_both,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
-    time.sleep(2)
+    time.sleep(1)
     pi.set_servo_pulsewidth(ESC_both, max_throttle)
-    time.sleep(2)
+    time.sleep(1)
     pi.set_servo_pulsewidth(ESC_both, idle_throttle)
     time.sleep(2)
 
