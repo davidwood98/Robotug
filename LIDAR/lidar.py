@@ -42,7 +42,7 @@ def scan():
             lcd.fill((0,0,0))
             for (quality, angle, distance) in scan:
                 max_distance = max([min([5000, distance]), max_distance])
-                min_distance = min(distance)
+                min_distance = min([distance])
                 radians = angle * pi / 180.0
                 x = distance * cos(radians)
                 y = distance * sin(radians)
