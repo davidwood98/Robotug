@@ -40,9 +40,9 @@ def scan():
     for scan in lidar.iter_scans():
         if len(scan) > 100:
             lcd.fill((0,0,0))
+            min_distance = min([distance])
             for (quality, angle, distance) in scan:
                 max_distance = max([min([5000, distance]), max_distance])
-                min_distance = min([distance])
                 radians = angle * pi / 180.0
                 x = distance * cos(radians)
                 y = distance * sin(radians)
