@@ -43,7 +43,7 @@ try:
     print("Recording measurments... Press Crl+C to stop.")
     for scan in lidar.iter_scans():
         pass
-        lcd.fill(0,0,0)
+        lcd.fill((0,0,0))
 
         for (quality, angle, distance) in scan:  # the scan data format is (quality, angle, distance), we dont really mind about the quality
             scan_data = []
