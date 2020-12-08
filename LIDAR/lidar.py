@@ -42,22 +42,34 @@ def scan():
             lcd.fill((0,0,0))
             pygame.draw.line(lcd,pygame.Color(100,100,100) , (0, 240),(720, 240))
             pygame.draw.line(lcd,pygame.Color(100,100,100) , (360, 0),(360, 480))
+            
             for (quality, angle, distance) in scan:
-                max_distance = max([min([5000, distance]), max_distance])
-                radians = angle * pi / 180.0
-                x = distance * cos(radians)
-                y = distance * sin(radians)
-                point = (360 + int(x / max_distance * 159), 240 + int(y / max_distance * 159))            
-                lcd.set_at(point, pygame.Color(255, 255, 255))
+                if distance < 2000:
+                    max_distance = max([min([5000, distance]), max_distance])
+                    radians = angle * pi / 180.0
+                    x = distance * cos(radians)
+                    y = distance * sin(radians)
+                    point = (360 + int(x / max_distance * 159), 240 + int(y / max_distance * 159))            
+                    lcd.set_at(point, pygame.Color(255, 255, 255))
+                    if distance < 160 :
+                        print("collision detection")
+                        print("reversing")
+                        once distance > 300: #need a way to make this be the next trigger
+                            print("drive")
+                   
+
             pygame.display.update()
         #print(min_distance)
-        #print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
+            #print("quality={} angle={:.2f} distance={:.2f}".format(quality, angle, distance))
 
 def min_distance():
     for scan in lidar.iter_scans():
         for (_,_,distance) in scan:
-            mindis = min([distance])
-        print(mindis)
+            return distance
+            
+        
 if __name__ == "__main__":
-    #scan()
-    min_distance()
+    scan()
+    
+    #dis = scan()
+    #print(dis) # needs to return distance in main
