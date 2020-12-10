@@ -23,14 +23,14 @@ import motor
 
 
 # SET-UP
-ESC1 = 27      # pigpio uses BCM gpio numbering
+ESC1 = 17      # pigpio uses BCM gpio numbering
 ESC2 = 19  
-ESC_both = [27, 19]   # list to give motors same command
+ESC_both = [17, 19]   # list to give motors same command
 
 rpm_left = 18       # gpio pins for the rpm signal from esc
 rpm_right = 13
 
-relay_left_ch1 = 23 
+relay_left_ch1 = 27 
 relay_left_ch2 = 22
 both_relay_left = [23, 22]      # list to swap direction of the motor
 
@@ -64,11 +64,11 @@ startup_inp = input("Is this a cold start?: ")
 if startup_inp == ("yes"):      # The ESCs need arming when first powered on
     print("Arming the ESCs")
 
-    pi.set_servo_pulsewidth(ESC_both,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
+    pi.set_servo_pulsewidth(ESC1,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
     time.sleep(1)
-    pi.set_servo_pulsewidth(ESC_both, max_throttle)
+    pi.set_servo_pulsewidth(ESC1, max_throttle)
     time.sleep(1)
-    pi.set_servo_pulsewidth(ESC_both, idle_throttle)
+    pi.set_servo_pulsewidth(ESC1, idle_throttle)
     time.sleep(2)
 
     print("Ready for operation")
