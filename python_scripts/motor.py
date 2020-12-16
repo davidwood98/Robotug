@@ -9,31 +9,43 @@ import keyboard
 
 # MOVEMENT FUNCTIONS
 
-def move_forward(pi, ESC_both, relays_left, relays_right, all_relays, speed):  #forward movement function
+def move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed):  #forward movement function
     """
     funciton will rotate both motors at equal speed
     """
-    if pi.read(relays_left) or pi.read(relays_right) == 1:
-        pi.set_servo_pulsewidth(ESC_both,0)
+    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2)== 0:
+        pi.set_servo_pulsewidth(ESC1,0)
+        pi.set_servo_pulsewidth(ESC2,0)
         time.sleep(0.5)
-        pi.write(all_relays, 0)
-        pi.set_servo_pulsewidth(ESC_both, speed)
+        pi.write(relay_left1, 0)
+        pi.write(relay_left2, 0)
+        pi.write(relay_right1, 0)
+        pi.write(relay_right2, 0)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
     else:
-        pi.set_servo_pulsewidth(ESC_both, speed)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
 
 
-def move_backwards(pi, ESC_both, relays_left, relays_right, all_relays, speed):
+def move_backwards(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed):
     """
     funciton will rotate both motors at equal speed in reverse
 
     """
-    if pi.read(relays_left) or pi.read(relays_right) == 0:
-        pi.set_servo_pulsewidth(ESC_both,0)
+    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2) == 1:
+        pi.set_servo_pulsewidth(ESC1,0)
+        pi.set_servo_pulsewidth(ESC2,0)
         time.sleep(0.5)
-        pi.write(all_relays, 1)
-        pi.set_servo_pulsewidth(ESC_both, speed)
+        pi.write(relay_left1, 1)
+        pi.write(relay_left2, 1)
+        pi.write(relay_right1, 1)
+        pi.write(relay_right2, 1)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
     else:
-        pi.set_servo_pulsewidth(ESC_both, speed)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
 
 
 def turn_left(pi, ESC1, ESC2, speed, idle):
@@ -52,51 +64,59 @@ def turn_right(pi, ESC1, ESC2, speed, idle):
     pi.set_servo_pulsewidth(ESC2,idle)
 
 
-def spin_clockwise(pi, ESC_both, relays_left, relays_right, speed, idle):
+def spin_clockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle):
     """
     funciton will rotate both motors at equal speed in opposite directions creating
     a clockwise rotation
     """
-    pi.set_servo_pulsewidth(ESC_both,idle)
+    pi.set_servo_pulsewidth(ESC1,idle)
+    pi.set_servo_pulsewidth(ESC2,idle)
     time.sleep(0.5)
-    pi.write(relays_left, 0)
-    pi.write(relays_right, 1)
-    pi.set_servo_pulsewidth(ESC_both, speed)
+    pi.write(relay_left1, 0)
+    pi.write(relay_left2, 0)
+    pi.write(relay_right1, 1)
+    pi.write(relay_right2, 1)
+    pi.set_servo_pulsewidth(ESC1, speed)
+    pi.set_servo_pulsewidth(ESC2, speed)
 
 
-def spin_anticlockwise(pi, ESC_both, relays_left, relays_right, speed, idle):
+def spin_anticlockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle):
     """
     will spin the robot in an anticlockwise direction
     """
-    pi.set_servo_pulsewidth(ESC_both,idle)
+    pi.set_servo_pulsewidth(ESC1,idle)
+    pi.set_servo_pulsewidth(ESC2,idle)
     time.sleep(0.5)
-    pi.write(relays_left, 1)
-    pi.write(relays_right, 0)
-    pi.set_servo_pulsewidth(ESC_both, speed)
+    pi.write(relay_left1, 1)
+    pi.write(relay_left2, 1)
+    pi.write(relay_right1, 0)
+    pi.write(relay_right2, 0)
+    pi.set_servo_pulsewidth(ESC1, speed)
+    pi.set_servo_pulsewidth(ESC2, speed)
 
     
-def pre_planned(pi, ESC_both, ESC1, ESC2, relays_left, relays_right, all_relays, speed, idle):
+def pre_planned(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle):
     """
     executes the movement functions for a set movement output
     as an example:
     """
-    move_forward(pi, ESC_both, relays_left, relays_right, all_relays, speed)
+    move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
     time.sleep(2)
     turn_left(pi, ESC1, ESC2, speed, idle)
     time.sleep(2)
     turn_right(pi, ESC1, ESC2, speed, idle)
     time.sleep(2)
-    move_backwards(pi, ESC_both, relays_left, relays_right, all_relays, speed)
+    move_backwards(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
     time.sleep(2)
-    move_forward(pi, ESC_both, relays_left, relays_right, all_relays, speed)
+    move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
     time.sleep(2)
-    stop(pi, ESC_both, idle)
+    stop(pi, ESC1, ESC2, idle)
 
 
 # DEBUGGING FUNCTONS
-# these only operate ESC1
+# these only operate the ESC at the same time
 
-def manual_drive(pi, ESC1, idle): 
+def manual_drive(pi, ESC1, ESC2, idle): 
     """
     This allows for manual input of the motor speed
     """
@@ -107,24 +127,27 @@ def manual_drive(pi, ESC1, idle):
     while True :     #this while loop should continuously ask for an input
         inp = input()
         if inp == ("stop"):  #exit statement
-            stop(pi, ESC1, idle)
+            stop(pi, ESC1, ESC2, idle)
             break
         elif inp == ("kill"): #kill statement
-            kill(pi, ESC1)
+            kill(pi, ESC1, ESC2)
             break           #safety feature, really
         elif int(inp) > max_value :
             print("value must be smaller than", max_value)
         else:
             pi.set_servo_pulsewidth(ESC1,inp)
+            pi.set_servo_pulsewidth(ESC2,inp)
     
-def control(pi, ESC1, speed, idle):
+def control(pi, ESC1, ESC2, speed, idle):
     """
     This mode allows for incrimental stepping PWM control of the motor
     """
     time.sleep(1)
     print("Controls - w to decrease speed & s to increase speed OR q to decrease a lot of speed & e to increase a lot of speed, or x to kill")
+    speed = 1150
     while True:   #the while loop will ask for a speed change
         pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
         inp = input()
         if inp == ("q"):
             speed -= 200    # decrementing the speed like hell
@@ -140,9 +163,10 @@ def control(pi, ESC1, speed, idle):
             print("speed = %s" % speed)
         elif inp == ("stop"):
             pi.set_servo_pulsewidth(ESC1,idle)         #going for the stop function
+            pi.set_servo_pulsewidth(ESC2,idle)
             break
         elif inp == ("x"):
-            kill(pi, ESC1)
+            kill(pi, ESC1, ESC2)
             break           #safety feature, really
         else:
             print("WHAT DID I SAY!! Press w,s,q,e or x")
@@ -150,17 +174,19 @@ def control(pi, ESC1, speed, idle):
 
 # STOP FUNCITONS
 
-def kill(pi, ESC_both):
+def kill(pi, ESC1, ESC2):
     """
     kill will end all signals from the pi.
     """
     print("You have killed the program and will have to restart.")
-    pi.set_servo_pulsewidth(ESC_both, 0)
+    pi.set_servo_pulsewidth(ESC1, 0)
+    pi.set_servo_pulsewidth(ESC2, 0)
     pi.stop()
 
 
-def stop(pi, ESC_both, idle):
+def stop(pi, ESC1, ESC2, idle):
     """
     function will hault both the motors, bringing Robotug to a stop.
     """
-    pi.set_servo_pulsewidth(ESC_both,idle)
+    pi.set_servo_pulsewidth(ESC1,idle)
+    pi.set_servo_pulsewidth(ESC2,idle)
