@@ -101,7 +101,7 @@ def pre_planned(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_ri
     as an example:
     """
     move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
-    time.sleep(4)
+    time.sleep(6)
     #turn_left(pi, ESC1, ESC2, speed, idle)
     #time.sleep(2)
     #turn_right(pi, ESC1, ESC2, speed, idle)
@@ -112,8 +112,10 @@ def pre_planned(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_ri
     #time.sleep(4)
     #move_backwards(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
     #time.sleep(3)
-    #move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
-    #time.sleep(2)
+    move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
+    time.sleep(6)
+    spin_anticlockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle)
+    time.sleep(2)
     stop(pi, ESC1, ESC2, idle)
 
 
