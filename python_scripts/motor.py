@@ -13,9 +13,9 @@ def move_forward(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_r
     """
     funciton will rotate both motors at equal speed
     """
-    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2)== 0:
-        pi.set_servo_pulsewidth(ESC1,0)
-        pi.set_servo_pulsewidth(ESC2,0)
+    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2)== 1:
+        pi.set_servo_pulsewidth(ESC1,1100)
+        pi.set_servo_pulsewidth(ESC2,1100)
         time.sleep(0.5)
         pi.write(relay_left1, 0)
         pi.write(relay_left2, 0)
@@ -33,9 +33,9 @@ def move_backwards(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay
     funciton will rotate both motors at equal speed in reverse
 
     """
-    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2) == 1:
-        pi.set_servo_pulsewidth(ESC1,0)
-        pi.set_servo_pulsewidth(ESC2,0)
+    if pi.read(relay_left1) or pi.read(relay_left2) or pi.read(relay_right1) or pi.read(relay_right2)== 0:
+        pi.set_servo_pulsewidth(ESC1,1100)
+        pi.set_servo_pulsewidth(ESC2,1100)
         time.sleep(0.5)
         pi.write(relay_left1, 1)
         pi.write(relay_left2, 1)
@@ -105,6 +105,10 @@ def pre_planned(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_ri
     turn_left(pi, ESC1, ESC2, speed, idle)
     time.sleep(2)
     turn_right(pi, ESC1, ESC2, speed, idle)
+    time.sleep(2)
+    spin_clockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle)
+    time.sleep(2)
+    spin_anticlockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle)
     time.sleep(2)
     move_backwards(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed)
     time.sleep(2)

@@ -24,7 +24,7 @@ import motor
 
 # SET-UP
 ESC1 = 17      # pigpio uses BCM gpio numbering
-ESC2 = 19  
+ESC2 = 16  
 
 rpm_left = 18       # gpio pins for the rpm signal from esc
 rpm_right = 13
@@ -32,10 +32,16 @@ rpm_right = 13
 relay_left_ch1 = 27 
 relay_left_ch2 = 22
 
-relay_right_ch1 = 24     # ***might be worth putting the gpio on a breadboard that way these can share pin slots.
-relay_right_ch2 = 25
+relay_right_ch1 = 23     # ***might be worth putting the gpio on a breadboard that way these can share pin slots.
+relay_right_ch2 = 24
 
 pi = pigpio.pi()        #Initialise Pi connection
+
+pi.write(relay_right_ch1, 0)  #set pins to low, default forward
+pi.write(relay_right_ch2, 0)
+
+pi.write(relay_left_ch1, 0)  #set pins to low, default forward
+pi.write(relay_left_ch2, 0)
 
 zero_throttle = 0
 max_throttle = 1900     # ***this is a crazy fast speed on these motors and should be altered
@@ -119,6 +125,7 @@ while True:
         if movement_select == ("remote control"): 
             print("\nControls are the arrow keys - 'ctrl + right(left)' to spin - 'ctrl + x' to break ")
             while keyboard.KEY_DOWN:
+                
                 if keyboard.is_pressed("up"):       # the keyboard press and hold for moving forward 
                     print("moving forward")
                     motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
@@ -131,15 +138,17 @@ while True:
                 elif keyboard.is_pressed("right"):
                     motor.turn_right(pi, ESC1, ESC2, low_throttle, idle_throttle)
                     print("turning right")
-                elif keyboard.is_pressed("ctrl + right"):
+                elif keyboard.is_pressed("a"):
                     motor.spin_clockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
                     print("spinning clockwise")
-                elif keyboard.is_pressed("ctrl + left"):
+                elif keyboard.is_pressed("d"):
                     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
                     print("spinning anticlockwise")
                 elif keyboard.is_pressed("ctrl + x"):       # will only break one layer
                     break
+        
                 else:
+                    time.sleep(0.5)
                     motor.stop(pi, ESC1, ESC2, idle_throttle)     # if a key is released then the robot stops
                     print("stopped")
         
