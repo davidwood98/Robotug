@@ -25,19 +25,15 @@ import motor
 # SET-UP
 ESC1 = 17      # pigpio uses BCM gpio numbering
 ESC2 = 19  
-ESC_both = [17, 19]   # list to give motors same command
 
 rpm_left = 18       # gpio pins for the rpm signal from esc
 rpm_right = 13
 
 relay_left_ch1 = 27 
 relay_left_ch2 = 22
-both_relay_left = [23, 22]      # list to swap direction of the motor
 
 relay_right_ch1 = 24     # ***might be worth putting the gpio on a breadboard that way these can share pin slots.
 relay_right_ch2 = 25
-both_relay_right = [24, 25]
-all_relays = [23, 22, 24, 25]
 
 pi = pigpio.pi()        #Initialise Pi connection
 
@@ -64,11 +60,14 @@ startup_inp = input("Is this a cold start?: ")
 if startup_inp == ("yes"):      # The ESCs need arming when first powered on
     print("Arming the ESCs")
 
-    pi.set_servo_pulsewidth(ESC1,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
+    pi.set_servo_pulsewidth(ESC1,zero_throttle)
+    pi.set_servo_pulsewidth(ESC2,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
     time.sleep(1)
     pi.set_servo_pulsewidth(ESC1, max_throttle)
+    pi.set_servo_pulsewidth(ESC2, max_throttle)
     time.sleep(1)
     pi.set_servo_pulsewidth(ESC1, idle_throttle)
+    pi.set_servo_pulsewidth(ESC2, idle_throttle)
     time.sleep(2)
 
     print("Ready for operation")
@@ -76,7 +75,8 @@ if startup_inp == ("yes"):      # The ESCs need arming when first powered on
 else:
     print("Ready for operation")
     
-    pi.set_servo_pulsewidth(ESC_both, idle_throttle)
+    pi.set_servo_pulsewidth(ESC1, idle_throttle)
+    pi.set_servo_pulsewidth(ESC2, idle_throttle)
     time.sleep(1)
 
 # FUNCTIONS
@@ -121,9 +121,9 @@ while True:
             while keyboard.KEY_DOWN:
                 if keyboard.is_pressed("up"):       # the keyboard press and hold for moving forward 
                     print("moving forward")
-                    motor.move_forward(pi, ESC_both, both_relay_left, both_relay_right, all_relays, low_throttle)
+                    motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
                 elif keyboard.is_pressed("down"):
-                    motor.move_backwards(pi, ESC_both, both_relay_left, both_relay_right, all_relays, low_throttle)
+                    motor.move_backwards(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
                     print("moving back")
                 elif keyboard.is_pressed("left"):
                     motor.turn_left(pi, ESC1, ESC2, low_throttle, idle_throttle)
@@ -132,30 +132,30 @@ while True:
                     motor.turn_right(pi, ESC1, ESC2, low_throttle, idle_throttle)
                     print("turning right")
                 elif keyboard.is_pressed("ctrl + right"):
-                    motor.spin_clockwise(pi, ESC_both, both_relay_left, both_relay_right, low_throttle, idle_throttle)
+                    motor.spin_clockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
                     print("spinning clockwise")
                 elif keyboard.is_pressed("ctrl + left"):
-                    motor.spin_anticlockwise(pi, ESC_both, both_relay_left, both_relay_right, low_throttle, idle_throttle)
+                    motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
                     print("spinning anticlockwise")
                 elif keyboard.is_pressed("ctrl + x"):       # will only break one layer
                     break
                 else:
-                    motor.stop(pi, ESC_both, idle_throttle)     # if a key is released then the robot stops
+                    motor.stop(pi, ESC1, ESC2, idle_throttle)     # if a key is released then the robot stops
                     print("stopped")
         
         elif movement_select == ("preplanned"):     # this set of instructions can be edited in motor.py
             print("\nA pre selected set of moves will now be executed")
             time.sleep(1)
-            motor.pre_planned(pi,ESC_both, ESC1, ESC2, both_relay_left, both_relay_right, all_relays, low_throttle, idle_throttle)
+            motor.pre_planned(pi,ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
     
     elif mode_select == ("debug"):
         print("*" * 20)
         debug_select = input("input or stepped?: ")
         print("*" * 20)
         if debug_select == ("input"):
-            motor.manual_drive(pi, ESC1, idle_throttle)
+            motor.manual_drive(pi, ESC1, ESC2, idle_throttle)
         elif debug_select == ("stepped"):
-            motor.control(pi, ESC1, low_throttle, idle_throttle)
+            motor.control(pi, ESC1, ESC2, low_throttle, idle_throttle)
     
     elif mode_select == ("x"):
         break
@@ -164,6 +164,6 @@ while True:
 
 
 #CLEAN UP 
-motor.kill(pi, ESC_both)
+motor.kill(pi, ESC1, ESC2)
 
 pi.stop()
