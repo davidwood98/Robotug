@@ -226,7 +226,20 @@ if __name__ == "__main__":
     half_throttle = max_throttle/2 
     idle_throttle = 1100  
     low_throttle = 1150 
-
+    
     inp = input()
     if inp == (""):
+        pi.set_servo_pulsewidth(ESC1,zero_throttle)
+        pi.set_servo_pulsewidth(ESC2,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
+        time.sleep(1)
+        pi.set_servo_pulsewidth(ESC1, max_throttle)
+        pi.set_servo_pulsewidth(ESC2, max_throttle)
+        time.sleep(1)
+        pi.set_servo_pulsewidth(ESC1, idle_throttle)
+        pi.set_servo_pulsewidth(ESC2, idle_throttle)
+        time.sleep(2)
+    
+
+    inp2 = input()
+    if inp2 == (""):
         pre_planned(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
