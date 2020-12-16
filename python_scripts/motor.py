@@ -194,3 +194,39 @@ def stop(pi, ESC1, ESC2, idle):
     """
     pi.set_servo_pulsewidth(ESC1,idle)
     pi.set_servo_pulsewidth(ESC2,idle)
+
+
+if __name__ == "__main__":
+    import pigpio
+    import time
+    import keyboard
+
+    ESC1 = 17      # pigpio uses BCM gpio numbering
+    ESC2 = 16  
+
+    rpm_left = 18       # gpio pins for the rpm signal from esc
+    rpm_right = 13
+
+    relay_left_ch1 = 27 
+    relay_left_ch2 = 22
+
+    relay_right_ch1 = 23     # ***might be worth putting the gpio on a breadboard that way these can share pin slots.
+    relay_right_ch2 = 24
+
+    pi = pigpio.pi()        #Initialise Pi connection
+
+    pi.write(relay_right_ch1, 0)  #set pins to low, default forward
+    pi.write(relay_right_ch2, 0)
+
+    pi.write(relay_left_ch1, 0)  #set pins to low, default forward
+    pi.write(relay_left_ch2, 0)
+
+    zero_throttle = 0
+    max_throttle = 1900     # ***this is a crazy fast speed on these motors and should be altered
+    half_throttle = max_throttle/2 
+    idle_throttle = 1100  
+    low_throttle = 1150 
+
+    inp = input()
+    if inp == (""):
+        pre_planned(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
