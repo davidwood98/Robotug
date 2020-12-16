@@ -227,8 +227,8 @@ if __name__ == "__main__":
     idle_throttle = 1100  
     low_throttle = 1150 
     
-    inp = input()
-    if inp == (""):
+    inp = input("arm, yes or no: ")
+    if inp == ("yes"):
         pi.set_servo_pulsewidth(ESC1,zero_throttle)
         pi.set_servo_pulsewidth(ESC2,zero_throttle)    # sends the throttle puslewidth signal to the esc and thus the motor
         time.sleep(1)
@@ -238,7 +238,8 @@ if __name__ == "__main__":
         pi.set_servo_pulsewidth(ESC1, idle_throttle)
         pi.set_servo_pulsewidth(ESC2, idle_throttle)
         time.sleep(2)
-    
+    elif inp == ("no"):
+        pass
 
     inp2 = input()
     if inp2 == (""):
