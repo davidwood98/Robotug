@@ -110,6 +110,19 @@ def vehicle_speed(pi, rpm_gpio, r, gear_ratio):
 
     return v
 
+def collision_avoidance():
+    motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
+    for scan in lidar.iter_scans():
+        if len(scan) > 50:
+            for (quality, angle, distance) in scan:
+                if angle in range (135, 225) and distance < 170:
+                        print("collision detection")
+                        print("reversing")
+                        once distance > 300: #need a way to make this be the next trigger
+                            print("drive")
+                   
+
+            pygame.display.update()
 
 # MAIN CODE
 print("""\nSelect a programme you'd like to operate in. The options are:

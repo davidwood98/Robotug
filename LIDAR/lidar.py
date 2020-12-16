@@ -51,11 +51,11 @@ def scan():
                     y = distance * sin(radians)
                     point = (360 + int(x / max_distance * 159), 240 + int(y / max_distance * 159))            
                     lcd.set_at(point, pygame.Color(255, 255, 255))
-                    if distance < 160 :
+                    if angle in range (135, 225) and distance < 160 :
                         print("collision detection")
                         print("reversing")
-                        once distance > 300: #need a way to make this be the next trigger
-                            print("drive")
+                        #once distance > 300: #need a way to make this be the next trigger
+                            #print("drive")
                    
 
             pygame.display.update()
