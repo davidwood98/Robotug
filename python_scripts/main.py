@@ -49,6 +49,9 @@ half_throttle = max_throttle/2
 idle_throttle = 1100  
 low_throttle = 1150     # slowest consistent motor launch speed from testing - can be taken down to 1040 after initial spin up
 
+PORT_NAME = "/dev/ttyUSB0" #Lidar initiation - ** pi is tempermental with setting up ttyUSB - best to use USB 2.0 ports
+lidar = RPLidar(PORT_NAME)
+
 
 #PHYSICAL VALUES
 wheel_radius = 0.0605       # ***makes sure this is up to date
@@ -86,6 +89,13 @@ else:
     time.sleep(1)
 
 # FUNCTIONS
+def dual_motorstop():
+    """
+    stops both motors
+    """
+    pi.set_servo_pulsewidth(ESC1, idle_throttle)
+    pi.set_servo_pulsewidth(ESC2, idle_throttle)
+
 def motor_rpm(pi, rpm_gpio):
     """
     will return the specified motor rpm
@@ -110,19 +120,33 @@ def vehicle_speed(pi, rpm_gpio, r, gear_ratio):
 
     return v
 
-def collision_avoidance():
+def collision_avoid():
+    """
+    predetermined moves to miss obsticle
+    """
+    dual_motorstop()
+    motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+    time.sleep(2)
+    dual_motorstop()
+
+def collision_detection():
+    """
+    monitors distance to obsticles
+    """
+    print("*" * 20)
+    print("\nhit 'x' to kill operation\n")
+    print("*" * 20)
     motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
     for scan in lidar.iter_scans():
         if len(scan) > 50:
             for (quality, angle, distance) in scan:
                 if angle in range (135, 225) and distance < 170:
-                        print("collision detection")
-                        print("reversing")
-                        once distance > 300: #need a way to make this be the next trigger
-                            print("drive")
+                        print("collision detected")
+                        collision_avoid()
+                        break
+                        
                    
 
-            pygame.display.update()
 
 # MAIN CODE
 print("""\nSelect a programme you'd like to operate in. The options are:
