@@ -127,7 +127,7 @@ def collision_avoid():
     """
     dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    time.sleep(2)
+    time.sleep(1.8)
     dual_motorstop()
 
 def collision_detection():
@@ -158,7 +158,7 @@ while True:
     mode_select = input("Please select a mode: ")
     if mode_select == ("move"):         # enters keyboard control
         print("*" * 20)
-        movement_select = input("remote control or preplanned?: ")
+        movement_select = input("remote control, preplanned or lidar?: ")
         print("*" * 20)
         if movement_select == ("remote control"): 
             print("\nControls are the arrow keys - 'ctrl + right(left)' to spin - 'ctrl + x' to break ")
@@ -194,6 +194,11 @@ while True:
             print("\nA pre selected set of moves will now be executed")
             time.sleep(1)
             motor.pre_planned(pi,ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+        
+        elif movement_select == ("lidar"):
+            print("\n Robot will now avoid collisions")
+            time.sleep(1)
+            collision_detection()
     
     elif mode_select == ("debug"):
         print("*" * 20)
