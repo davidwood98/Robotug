@@ -20,7 +20,7 @@ import pigpio
 import keyboard   # this module is the reason you need to run script as a sudo permission
 import read_PWM
 import motor 
-
+from rplidar import RPLidar 
 
 # SET-UP
 ESC1 = 17      # pigpio uses BCM gpio numbering
@@ -87,6 +87,7 @@ else:
     pi.set_servo_pulsewidth(ESC1, idle_throttle)
     pi.set_servo_pulsewidth(ESC2, idle_throttle)
     time.sleep(1)
+
 
 # FUNCTIONS
 def dual_motorstop():
