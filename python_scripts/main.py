@@ -141,7 +141,7 @@ def collision_detection():
     for scan in lidar.iter_scans():
         if len(scan) > 50:
             for (quality, angle, distance) in scan:
-                if angle in range (135, 225) and distance < 170:
+                if distance < 170:
                         print("collision detected")
                         collision_avoid()
                         break
