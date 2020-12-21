@@ -137,23 +137,25 @@ def collision_detection():
     print("*" * 20)
     print("\nhit 'x' to kill operation\n")
     print("*" * 20)
-    inp = input()  #input used for overide stop
     motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
-    for scan in lidar.iter_scans():
-        #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
+    try:      
+        for scan in lidar.iter_scans():
+            #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
 
-        if len(scan) > 50:
-            for (quality, angle, distance) in scan:
+            if len(scan) > 50:
+                for (quality, angle, distance) in scan:
 
-                if angle in range (75, 105) and distance <= 300:
-                    print("collision detected")
-                    collision_avoid()
-                    break
-                elif inp == ("x"):
-                    dual_motorstop()
-                    break
-                else:
-                    pass  
+                    if angle in range (75, 105) and distance <= 300:
+                        print("collision detected")
+                        collision_avoid()
+                        break
+                    else:
+                        pass  
+    except KeyboardInterrupt:
+        dual_motorstop()
+        
+    
+    
 
         
                    
