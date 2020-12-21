@@ -127,7 +127,7 @@ def collision_avoid():
     """
     dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    time.sleep(1.8)
+    time.sleep(1.5)
     dual_motorstop()
 
 def collision_detection():
