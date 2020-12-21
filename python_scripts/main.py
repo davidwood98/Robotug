@@ -55,8 +55,7 @@ lidar = RPLidar(PORT_NAME)
 
 #PHYSICAL VALUES
 wheel_radius = 0.0605       # ***makes sure this is up to date
-reduction_ratio = 9
-
+gear_ratio = 10
 
 # INITIAL ASK
 boot_msg = """Welcome to the Robotug drive program. 
@@ -97,11 +96,11 @@ def dual_motorstop():
     pi.set_servo_pulsewidth(ESC1, idle_throttle)
     pi.set_servo_pulsewidth(ESC2, idle_throttle)
 
-def motor_rpm(pi, rpm_gpio):
+def motor_rpm(gpio):
     """
     will return the specified motor rpm
     """
-    p = read_PWM.Reader(pi, rpm_gpio)
+    p = read_PWM.Reader(pi, gpio)
     
     f = p.frequency()
 
@@ -109,11 +108,12 @@ def motor_rpm(pi, rpm_gpio):
 
     return rpm
 
-def vehicle_speed(pi, rpm_gpio, r, gear_ratio):
+def vehicle_speed(gpio):
     """
     will calculate the speed of the tug
     """ 
-    wheel_rpm = motor_rpm(pi, rpm_gpio) / gear_ratio
+    r = wheel_radius
+    wheel_rpm = motor_rpm(gpio) / gear_ratio
 
     omega = wheel_rpm / 60
 
@@ -127,7 +127,7 @@ def collision_avoid():
     """
     dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    time.sleep(1.54)
+    time.sleep(1.58)
     dual_motorstop()
 
 def collision_detection():
