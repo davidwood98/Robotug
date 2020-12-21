@@ -149,13 +149,13 @@ def collision_detection():
                     print("collision detected")
                     collision_avoid()
                     break
-
+                elif inp == ("x"):
+                    dual_motorstop()
+                    break
                 else:
                     pass  
 
-        if inp == ("x"):
-                    dual_motorstop()
-                    break
+        
                    
 
 
