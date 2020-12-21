@@ -135,7 +135,7 @@ def collision_detection():
     monitors distance to obsticles
     """
     print("*" * 20)
-    print("\nhit 'x' to kill operation\n")
+    print("\nhit 'crtl + c' to kill operation\n")
     print("*" * 20)
     motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
     try:      
