@@ -143,7 +143,7 @@ def collision_detection():
 
         if len(scan) > 50:
             for (quality, angle, distance) in scan:
-                if angle in range (255, 285) and distance <= 300:
+                if angle in range (75, 105) and distance <= 300:
                         print("collision detected")
                         collision_avoid()
                         break
@@ -203,6 +203,9 @@ while True:
             print("\n Robot will now avoid collisions")
             time.sleep(1)
             collision_detection()
+
+        elif mode_select == ("x"):
+            break
     
     elif mode_select == ("debug"):
         print("*" * 20)
