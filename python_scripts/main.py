@@ -127,7 +127,7 @@ def collision_avoid():
     """
     dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    time.sleep(1.5)
+    time.sleep(1.54)
     dual_motorstop()
 
 def collision_detection():
@@ -140,7 +140,7 @@ def collision_detection():
     motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
     try:      
         for scan in lidar.iter_scans():
-            #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
+            motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
 
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:
