@@ -127,7 +127,6 @@ def collision_avoid():
     """
     dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    dual_motorstop()
 
 def collision_detection():
     """
@@ -136,20 +135,21 @@ def collision_detection():
     print("*" * 20)
     print("\nhit 'crtl + c' to kill operation\n")
     print("*" * 20)
-    motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
+    #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
     try:      
         for scan in lidar.iter_scans():
             
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:
 
-                    if angle in range (0, 10) and distance <= 405:
+                    if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         collision_avoid()
                         break
+                    
                     else:
-                        #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)  
-                        pass
+                        motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)  
+                        #pass
     except KeyboardInterrupt:
         dual_motorstop()
         
