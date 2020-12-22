@@ -125,7 +125,7 @@ def collision_avoid():
     """
     predetermined moves to miss obsticle
     """
-    dual_motorstop()
+    #dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
 
 def collision_detection():
@@ -141,11 +141,12 @@ def collision_detection():
             
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:
-
-                    while angle in range(90, 170) and distance <= 505:
+                    if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
-                        collision_avoid()
-                        #break
+                        dual_motorstop()
+                        while angle in range(90, 170) and distance <= 505:
+                            collision_avoid()
+                            #break
                     
                     else:
                         motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)  
