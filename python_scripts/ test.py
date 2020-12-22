@@ -146,6 +146,7 @@ def collision_detection():
                         if distance <= 505:
                             print("collision detected")
                             collision_avoid()
+                            break
                         else:
                             break
                         #break
