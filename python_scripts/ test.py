@@ -144,7 +144,7 @@ def collision_detection():
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         dual_motorstop()
-                        while angle in range(90, 170) and distance <= 505:
+                        for angle in range(90, 170) and distance <= 505:
                             collision_avoid()
                             #break
                     
