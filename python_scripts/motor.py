@@ -69,30 +69,39 @@ def spin_clockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay
     funciton will rotate both motors at equal speed in opposite directions creating
     a clockwise rotation
     """
-    pi.set_servo_pulsewidth(ESC1,idle)
-    pi.set_servo_pulsewidth(ESC2,idle)
-    time.sleep(0.5)
-    pi.write(relay_left1, 0)
-    pi.write(relay_left2, 0)
-    pi.write(relay_right1, 1)
-    pi.write(relay_right2, 1)
-    pi.set_servo_pulsewidth(ESC1, speed)
-    pi.set_servo_pulsewidth(ESC2, speed)
+    if pi.read(relay_left1) == 1 or pi.read(relay_right2)== 0:
+        pi.set_servo_pulsewidth(ESC1,idle)
+        pi.set_servo_pulsewidth(ESC2,idle)
+        time.sleep(0.5)
+        pi.write(relay_left1, 0)
+        pi.write(relay_left2, 0)
+        pi.write(relay_right1, 1)
+        pi.write(relay_right2, 1)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
+    else:
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
+
 
 
 def spin_anticlockwise(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle):
     """
     will spin the robot in an anticlockwise direction
     """
-    pi.set_servo_pulsewidth(ESC1,idle)
-    pi.set_servo_pulsewidth(ESC2,idle)
-    time.sleep(0.5)
-    pi.write(relay_left1, 1)
-    pi.write(relay_left2, 1)
-    pi.write(relay_right1, 0)
-    pi.write(relay_right2, 0)
-    pi.set_servo_pulsewidth(ESC1, speed)
-    pi.set_servo_pulsewidth(ESC2, speed)
+    if pi.read(relay_left1) == 0 or pi.read(relay_right2)== 1:
+        pi.set_servo_pulsewidth(ESC1,idle)
+        pi.set_servo_pulsewidth(ESC2,idle)
+        time.sleep(0.5)
+        pi.write(relay_left1, 1)
+        pi.write(relay_left2, 1)
+        pi.write(relay_right1, 0)
+        pi.write(relay_right2, 0)
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
+    else:
+        pi.set_servo_pulsewidth(ESC1, speed)
+        pi.set_servo_pulsewidth(ESC2, speed)
 
     
 def pre_planned(pi, ESC1, ESC2, relay_left1, relay_left2, relay_right1, relay_right2, speed, idle):
