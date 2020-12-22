@@ -142,7 +142,7 @@ def collision_detection():
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:
 
-                    if angle in range(90, 170) and distance <= 505:
+                    while angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         collision_avoid()
                         #break
