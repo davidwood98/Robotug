@@ -148,6 +148,7 @@ def collision_detection():
                             collision_avoid()
                             break
                         else:
+                            motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
                             break
                         #break
                     else:
