@@ -145,6 +145,7 @@ def collision_detection():
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         #collision_avoid()
+                        time.sleep(0.5)
                         break
                     elif angle in range(10, 170) and distance > 506:
                         print("moving forward")
