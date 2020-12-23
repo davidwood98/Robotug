@@ -147,8 +147,6 @@ def collision_detection():
                         print("collision detected")
                         #collision_avoid()
                         #time.sleep(0.5)
-                    else:
-                        break
                     
                     
 
