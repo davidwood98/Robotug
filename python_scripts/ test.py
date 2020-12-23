@@ -141,9 +141,11 @@ def collision_detection():
             
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:
+                    time.sleep(0.5)
 
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
+                        time.sleep(0.5)
                         #collision_avoid()
                     elif angle in range(10, 170) and distance > 505:
                         print("moving forward")
