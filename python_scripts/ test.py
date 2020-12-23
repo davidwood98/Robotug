@@ -144,9 +144,10 @@ def collision_detection():
 
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
-                        collision_avoid()
+                        #collision_avoid()
                     elif angle in range(10, 170) and distance > 505:
-                        motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
+                        print("moving forward")
+                        #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
 
 
                    
