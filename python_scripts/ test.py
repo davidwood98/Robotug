@@ -133,7 +133,7 @@ def collision_avoid(angle):
         time.sleep(delay)
         dual_motorstop()
     else:
-        delay = angle_relative* 0.0175
+        delay = angle* 0.0175
         dual_motorstop()
         motor.spin_clockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
         time.sleep(delay)
