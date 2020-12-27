@@ -154,11 +154,11 @@ def collision_detection():
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:   # iterates for each tuple in the list scan
 
-                    if angle in range(90, 160) and distance <= 505:
+                    if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         collision_avoid(angle)
                         break
-                    elif angle in range(30, 90) and distance <= 505:
+                    elif angle in range(10, 90) and distance <= 505:
                         print("collision detected")
                         collision_avoid(angle)
 
