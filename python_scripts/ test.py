@@ -125,7 +125,7 @@ def collision_avoid(angle):
     """
     predetermined moves to miss obsticle
     """
-    if angle => 90:
+    if angle >= 90:
         angle_relative = angle - (2*(angle - 90))
         delay = angle_relative* 0.0175
         dual_motorstop()
