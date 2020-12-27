@@ -144,11 +144,8 @@ def collision_detection():
 
                     while angle in range(90, 170) and distance <= 505:
                         print("collision detected")
-                        for scan in lidar.iter_scans():
-                            if len(scan) > 100:
-                                for (quality, angle, distance) in scan:
-                                    angle = angle
-                                    distance = distance
+                        angle = angle
+                        distance = distance
                         #collision_avoid()
                         #time.sleep(1)
                     else:
