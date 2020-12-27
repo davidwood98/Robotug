@@ -125,12 +125,19 @@ def collision_avoid(angle):
     """
     predetermined moves to miss obsticle
     """
-    angle_relative = angle - (2*(angle - 90))
-    delay = angle_relative* 0.0175
-    dual_motorstop()
-    motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
-    time.sleep(delay)
-    dual_motorstop()
+    if angle > 90:
+        angle_relative = angle - (2*(angle - 90))
+        delay = angle_relative* 0.0175
+        dual_motorstop()
+        motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+        time.sleep(delay)
+        dual_motorstop()
+    else:
+        delay = angle_relative* 0.0175
+        dual_motorstop()
+        motor.spin_clockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+        time.sleep(delay)
+        dual_motorstop()
 
 def collision_detection():
     """
@@ -150,11 +157,12 @@ def collision_detection():
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
                         collision_avoid(angle)
-                        #time.sleep(1)
                         break
+                    elif angle in range(10, 90) and distance <= 505:
+                        print("collision detected")
+                        collision_avoid(angle)
+
                     else:
-                        #print("moving forward")
-                        #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle) 
                         pass
                     
 
