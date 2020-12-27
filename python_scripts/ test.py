@@ -125,14 +125,14 @@ def collision_avoid(angle):
     """
     predetermined moves to miss obsticle
     """
-    if angle > 90:
+    if angle => 90:
         angle_relative = angle - (2*(angle - 90))
         delay = angle_relative* 0.0175
         dual_motorstop()
         motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
         time.sleep(delay)
         dual_motorstop()
-    elif angle <= 90:
+    elif angle < 90:
         delay = angle* 0.0175
         dual_motorstop()
         motor.spin_clockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
