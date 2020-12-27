@@ -121,12 +121,15 @@ def vehicle_speed(gpio):
 
     return v
 
-def collision_avoid():
+def collision_avoid(angle):
     """
     predetermined moves to miss obsticle
     """
-    #dual_motorstop()
+    delay = angle * 0.0175
+    dual_motorstop()
     motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+    time.sleep(delay)
+    dual_motorstop()
 
 def collision_detection():
     """
@@ -139,13 +142,14 @@ def collision_detection():
     try:      
         for scan in lidar.iter_scans():   #scan is a list of tuples
             #print("moving forward")
+            motor.spin_anticlockwise(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle, idle_throttle)
+
             if len(scan) > 50:
                 for (quality, angle, distance) in scan:   # iterates for each tuple in the list scan
 
                     if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
-                        print(angle)
-                        #collision_avoid()
+                        collision_avoid(angle)
                         #time.sleep(1)
                         break
                     else:
