@@ -138,18 +138,17 @@ def collision_detection():
     #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle)
     try:      
         for scan in lidar.iter_scans():
-            print("moving forward")
+            #print("moving forward")
             if len(scan) > 100:
                 for (quality, angle, distance) in scan:
 
-                    while angle in range(90, 170) and distance <= 505:
+                    if angle in range(90, 170) and distance <= 505:
                         print("collision detected")
-                        angle = angle
-                        distance = distance
                         #collision_avoid()
                         #time.sleep(1)
+                        break
                     else:
-                        #print("moving forward")
+                        print("moving forward")
                         #motor.move_forward(pi, ESC1, ESC2, relay_left_ch1, relay_left_ch2, relay_right_ch1, relay_right_ch2, low_throttle) 
                         pass
                     
